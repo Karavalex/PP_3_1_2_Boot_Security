@@ -1,13 +1,11 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-import org.springframework.context.annotation.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.kata.spring.boot_security.demo.model.Role;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public interface RoleDAO {
-    List<RoleDAO> getAllRole();
-    RoleDAO findRoleByAuthority(String authority) throws NoSuchElementException;
-
-    String getAuthority();
+public interface RoleDAO extends JpaRepository<Role,Long> {
+    List<Role> findAll();
 }

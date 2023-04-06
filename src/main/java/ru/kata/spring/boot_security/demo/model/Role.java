@@ -5,43 +5,57 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "roles")
-public class Role extends AbstractEntity implements GrantedAuthority {
+public class Role implements GrantedAuthority {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(unique = true)
-    private String name;
+    private String role;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users = new ArrayList<>();
-    @Id
-    private Long id;
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = {@JoinColumn(name = "role_id")},
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    Set<User> users;
+
 
     public Role() {
     }
 
     public Role(String name) {
-        this.name = name;
+        this.role = name;
+    }
+    public Set<User> getUsers(){
+        return users;
     }
 
-    public String getName() {
-        return name;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String name) {
+        this.role = name;
     }
 
     @Override
     public String getAuthority() {
-        return name;
+        return role;
     }
 
     @Override
     public String toString() {
-        return String.format("Role [id = %d; name = %s;]", id, name);
+        return String.format("Role [id = %d; name = %s;]", id, role);
     }
 
     public void setId(Long id) {

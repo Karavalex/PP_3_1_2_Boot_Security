@@ -9,13 +9,15 @@ import java.util.List;
 public interface UserService {
     List<User> getAllUsers();
 
-    Object getUserById(int id);
+    Object getUserById(Integer id);
+
+    public User findByName(String name);
 
     void addUser(User user);
     List<RoleDAO> getAllRole();
 
-    void removeUser(int id);
+    void removeUser(Integer id);
 
-    void updateUser(int id , User user);
+    void updateUser(Integer id , User user);
 
 }

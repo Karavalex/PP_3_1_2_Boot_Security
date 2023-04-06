@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" lang="en">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирование пользователя</title>
+  <style>
+    table th, table td, form {
+      padding: 10px 5px;
+      font-family: sans-serif;
+      font-size: 14px;
+      border-style: solid;
+      border-width: 1px;
+      background-color: ivory;
+    }
+    button {
+      padding: 5px;
+      background: gold;
+    }
+    .buttonLogout {
+      padding: 5px;
+      background-color: deepskyblue;
+    }
+  </style>
+
+</head>
+<body>
+<form action="#" th:method="PATCH" th:action="@{/users/{id}(id=${user.getId()})}" th:object="${user}">
+  <div class="form-group">
+    <label for="name">Введите имя: </label>
+    <input type="text" th:field="*{name}" id="name" class="form-control"/>
+  </div>
+  <br/>
+  <div class="form-group">
+    <label for="lastname">Введите фамилию: </label>
+    <input type="text" th:field="*{lastName}" id="lastname" class="form-control"/>
+  </div>
+  <br/>
+  <div class="form-group">
+    <label for="age">Введите возраст: </label>
+    <input type="text" th:field="*{age}" id="age" class="form-control"/>
+  </div>
+  <br/>
+  <div class="form-group">
+    <label for="email">Введите email: </label>
+    <input type="text" th:field="*{email}" id="email" class="form-control"/>
+  </div>
+  <br/>
+  <div class="form-group">
+    <label for="password">Введите пароль: </label>
+    <input type="text" th:field="*{password}" id="password" class="form-control"/>
+  </div>
+    <br/>
+  <div class="form-group">
+    <label for="roles">Введите  должность: </label>
+    <input type="text" th:field="*{roles}" id="roles" class="form-control"/>
+  </div>
+    <br/>
+  <input type="submit" value="Обновить данные" class="btn btn-primary"/>
+</form>
+</body>
+</html>

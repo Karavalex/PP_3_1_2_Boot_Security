@@ -4,6 +4,7 @@ package ru.kata.spring.boot_security.demo.model;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -12,7 +13,7 @@ public class User {
     @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -28,9 +29,24 @@ public class User {
 
     @Column(name = "password")
     private String password;
-
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Column(name = "roles")
-    private String roles;
+    private Set<Role> roles;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+   }
 
     @Override
     public String toString() {
@@ -96,13 +112,6 @@ public class User {
         this.password = password;
     }
 
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
 
 
 }
